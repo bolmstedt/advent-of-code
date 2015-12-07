@@ -1,0 +1,65 @@
+#!/usr/bin/env php
+<?php
+
+if (PHP_SAPI !== 'cli') {
+    echo 'Warning: Advent of Code may only be invoked from a command line', PHP_EOL;
+}
+
+require_once __DIR__.'/../vendor/autoload.php';
+
+use Aoc\Commands;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+
+if (function_exists('date_default_timezone_set') === true && function_exists('date_default_timezone_get') === true) {
+    date_default_timezone_set(@date_default_timezone_get());
+}
+
+error_reporting(-1);
+
+if (function_exists('ini_set') === true) {
+    @ini_set('display_errors', 1);
+}
+
+$output      = new ConsoleOutput;
+$input       = new ArgvInput($_SERVER['argv']);
+$application = new Application;
+
+$days = [
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+    'ten',
+    'eleven',
+    'twelve',
+    'thirteen',
+    'fourteen',
+    'fifteen',
+    'sixteen',
+    'seventeen',
+    'eighteen',
+    'nineteen',
+    'twenty',
+    'twentyone',
+    'twentytwo',
+    'twentythree',
+    'twentyfour',
+    'twentyfive',
+];
+
+foreach ($days as $day) {
+    $file = __DIR__.'/../src/Commands/Day'.ucfirst($day).'Command.php';
+    if (file_exists($file) === true) {
+        $class = 'Aoc\\Commands\\Day'.ucfirst($day).'Command';
+        $application->add(new $class());
+    }
+}
+
+$application->run($input, $output);
