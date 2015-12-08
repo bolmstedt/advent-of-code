@@ -4,7 +4,8 @@ namespace Aoc\Commands;
 
 final class DayFiveCommand extends DayCommandAbstract
 {
-    protected $day          = 'five';
+    protected $day          = 5;
+    protected $description  = 'Doesn\'t He Have Intern-Elves For This?';
     protected $testFunction = [
         1 => 'isNiceString',
         2 => 'isReallyNiceString',

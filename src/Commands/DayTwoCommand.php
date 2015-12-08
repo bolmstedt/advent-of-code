@@ -4,7 +4,8 @@ namespace Aoc\Commands;
 
 final class DayTwoCommand extends DayCommandAbstract
 {
-    protected $day          = 'two';
+    protected $day          = 2;
+    protected $description  = 'I Was Told There Would Be No Math';
     protected $testFunction = [
         1 => 'paperNeeded',
         2 => 'ribbonNeeded',

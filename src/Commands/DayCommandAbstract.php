@@ -17,7 +17,8 @@ abstract class DayCommandAbstract extends Command
     protected $output;
     protected $input;
     protected $payload;
-    protected $day          = 'None';
+    protected $day;
+    protected $description;
     protected $parts        = [1 => 'one', 2 => 'two'];
     protected $testFunction = [];
     protected $testData     = [];
@@ -25,7 +26,7 @@ abstract class DayCommandAbstract extends Command
     protected function configure()
     {
         $this->setName('day:'.$this->day);
-        $this->setDescription('Run functions for day '.$this->day);
+        $this->setDescription($this->description);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

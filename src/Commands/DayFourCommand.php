@@ -4,7 +4,8 @@ namespace Aoc\Commands;
 
 final class DayFourCommand extends DayCommandAbstract
 {
-    protected $day          = 'four';
+    protected $day          = 4;
+    protected $description  = 'The Ideal Stocking Stuffer';
     protected $testFunction = [
         1 => 'findFiveZeroHash',
         2 => 'findSixZeroHash',
