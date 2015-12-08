@@ -57,7 +57,7 @@ abstract class DayCommandAbstract extends Command
         } catch (MissingTestException $e) {
             $this->output->writeln("<error>Part $part is missing tests. Not running that part.</>");
         } catch (FailingTestException $e) {
-            $this->output->writeln("<error>Part $part is failing tests!</> <fg=yellow>".$e->getMessage().'</>');
+            $this->output->writeln("<error>Part $part is ".$e->getMessage().'</>');
         } catch (MissingFunctionException $e) {
             $this->output->writeln("<error>Part $part is missing.</>");
         }
@@ -83,17 +83,22 @@ abstract class DayCommandAbstract extends Command
 
     protected function runTests($function, array $data)
     {
+        $failed = 0;
+        $total = count($data);
         foreach ($data as $input => $expected) {
             $timeStart = microtime(true);
             $calculated = $this->$function($input);
             $timeStop = microtime(true);
+            $timeTotal = round(($timeStop - $timeStart)*1000);
             if ($calculated !== $expected) {
-                throw new FailingTestException($input.' -> '.$calculated.'<>'.$expected);
-            }
-            if ($this->output->isVerbose()) {
-                $timeTotal = round(($timeStop - $timeStart)*1000);
+                $failed++;
+                $this->output->writeln('<error>Test failed in '.$timeTotal."ms: $input -> $calculated<>$expected</>");
+            } else if ($this->output->isVerbose()) {
                 $this->output->writeln('<info>Test succeded in '.$timeTotal.'ms:</> '.$input.' -> '.$calculated.'=='.$expected);
             }
+        }
+        if ($failed > 0) {
+            throw new FailingTestException("failing $failed out of $total tests.");
         }
     }
 
