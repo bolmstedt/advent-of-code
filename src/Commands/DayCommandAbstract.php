@@ -83,6 +83,7 @@ abstract class DayCommandAbstract extends Command
 
     protected function runTests($function, array $data)
     {
+        $this->initPart();
         $failed = 0;
         $total = count($data);
         foreach ($data as $input => $expected) {
@@ -106,6 +107,7 @@ abstract class DayCommandAbstract extends Command
     {
         $function = 'part'.ucfirst($part);
         $timeStart = microtime(true);
+        $this->initPart();
         $return = $this->$function($this->payload);
         $timeStop = microtime(true);
         $timeTotal = '';
@@ -128,6 +130,10 @@ abstract class DayCommandAbstract extends Command
     protected function processPayload($payload)
     {
         return $payload;
+    }
+
+    protected function initPart()
+    {
     }
 
     private function missingFunction()
