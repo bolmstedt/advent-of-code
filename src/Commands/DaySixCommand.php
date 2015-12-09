@@ -37,9 +37,9 @@ final class DaySixCommand extends DayCommandAbstract
 
     protected function initPart()
     {
-        ini_set('memory_limit', '256M');
+        ini_set('memory_limit', '512M');
         set_time_limit(120);
-        $this->lights = array_fill_keys(range(0, 999), array_fill_keys(range(0, 999), 0));
+        $this->lights = array_fill_keys(range(0, 999999), 0);
     }
 
     protected function processOperation($input, $part)
@@ -54,13 +54,7 @@ final class DaySixCommand extends DayCommandAbstract
 
     protected function getLights()
     {
-        $lightsOn = 0;
-
-        foreach ($this->lights as $row) {
-            $lightsOn += array_sum($row);
-        }
-
-        return $lightsOn;
+        return array_sum($this->lights);
     }
 
     protected function testOneOperation($input)
@@ -81,39 +75,39 @@ final class DaySixCommand extends DayCommandAbstract
 
         for ($x = $input[1][0]; $x <= $input[2][0]; $x++) {
             for ($y = $input[1][1]; $y <= $input[2][1]; $y++) {
-                $this->$input[0]($x, $y);
+                $this->$input[0]($x+$y*1000);
             }
         }
     }
 
-    protected function oneTurnOn($xPos, $yPos)
+    protected function oneTurnOn($pos)
     {
-        $this->lights[$xPos][$yPos] = 1;
+        $this->lights[$pos] = 1;
     }
 
-    protected function oneTurnOff($xPos, $yPos)
+    protected function oneTurnOff($pos)
     {
-        $this->lights[$xPos][$yPos] = 0;
+        $this->lights[$pos] = 0;
     }
 
-    protected function oneToggle($xPos, $yPos)
+    protected function oneToggle($pos)
     {
-        $this->lights[$xPos][$yPos] = $this->lights[$xPos][$yPos] === 0 ? 1 : 0;
+        $this->lights[$pos] = $this->lights[$pos] === 0 ? 1 : 0;
     }
 
-    protected function twoTurnOn($xPos, $yPos)
+    protected function twoTurnOn($pos)
     {
-        $this->lights[$xPos][$yPos] += 1;
+        $this->lights[$pos] += 1;
     }
 
-    protected function twoTurnOff($xPos, $yPos)
+    protected function twoTurnOff($pos)
     {
-        $this->lights[$xPos][$yPos] = max(0, $this->lights[$xPos][$yPos]-1);
+        $this->lights[$pos] = max(0, $this->lights[$pos]-1);
     }
 
-    protected function twoToggle($xPos, $yPos)
+    protected function twoToggle($pos)
     {
-        $this->lights[$xPos][$yPos] += 2;
+        $this->lights[$pos] += 2;
     }
 
     protected function partOne($input)
