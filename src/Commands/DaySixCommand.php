@@ -7,8 +7,8 @@ final class DaySixCommand extends DayCommandAbstract
     protected $day          = 6;
     protected $description  = 'Probably a Fire Hazard';
     protected $testFunction = [
-        1 => 'testOneOperation',
-        2 => 'testTwoOperation',
+        1 => 'testOne',
+        2 => 'testTwo',
     ];
     protected $testData     = [
         1 => [
@@ -57,13 +57,13 @@ final class DaySixCommand extends DayCommandAbstract
         return array_sum($this->lights);
     }
 
-    protected function testOneOperation($input)
+    protected function testOne($input)
     {
         $this->doOperation($input, 'one');
         return $this->getLights();
     }
 
-    protected function testTwoOperation($input)
+    protected function testTwo($input)
     {
         $this->doOperation($input, 'two');
         return $this->getLights();
