@@ -34,8 +34,12 @@ abstract class DayCommandAbstract extends Command
         $this->output = $output;
         $this->input = $input;
         try {
+            $timeStart = microtime(true);
             $this->loadPayload();
             $this->runParts();
+            $timeStop = microtime(true);
+            $totalTime = round(($timeStop - $timeStart)*1000);
+            $this->output->writeln('Done in '.$totalTime.'ms with peak memory usage at '.round(memory_get_peak_usage()/1024/1024).'MB.');
         } catch (MissingInputException $e) {
             $this->output->writeln('<error>No input file exists yet for this day.</>');
         }
