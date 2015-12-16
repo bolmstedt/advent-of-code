@@ -10,10 +10,10 @@ final class Reindeer
     protected $speed;
     protected $burst;
     protected $rest;
-    protected $distance;
-    protected $points;
+    protected $distance = 0;
+    protected $points   = 0;
+    protected $state    = self::STATE_FLYING;
     protected $secondsLeft;
-    protected $state;
 
     public function __construct($input)
     {
@@ -22,10 +22,7 @@ final class Reindeer
         $this->speed       = (int) $matches['speed'];
         $this->burst       = (int) $matches['burst'];
         $this->rest        = (int) $matches['rest'];
-        $this->distance    = 0;
-        $this->points      = 0;
         $this->secondsLeft = $this->burst;
-        $this->state       = self::STATE_FLYING;
     }
 
     public function advance()
