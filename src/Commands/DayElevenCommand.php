@@ -27,8 +27,8 @@ final class DayElevenCommand extends DayCommandAbstract
 
     protected function getNextValidPassword($password)
     {
-        do {
-        } while ($this->isValid(++$password) === false);
+        while ($this->isValid(++$password) === false) {
+        }
 
         return $password;
     }
