@@ -20,24 +20,6 @@ final class DayElevenCommand extends DayCommandAbstract
         ]
     ];
 
-    protected $straights = [
-        'abc',
-        'bcd',
-        'cde',
-        'def',
-        'efg',
-        'fgh',
-        'pqr',
-        'qrs',
-        'rst',
-        'stu',
-        'tuv',
-        'uvw',
-        'vwx',
-        'wxy',
-        'xyz',
-    ];
-
     protected function test($input)
     {
         return $this->getNextValidPassword($input);
@@ -53,7 +35,7 @@ final class DayElevenCommand extends DayCommandAbstract
 
     protected function isValid($password)
     {
-        return 1 === preg_match("/(?=.*(\\w)\\1.*(\\w)\\2)(?=.*(?:".implode('|', $this->straights)."))(?!.*(?:i|o|l))^.+$/", $password);
+        return 1 === preg_match("/(?=.*(\\w)\\1.*(\\w)\\2)(?=.*(?:abc|bcd|cde|def|efg|fgh|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz))(?!.*(?:i|o|l))^.+$/", $password);
     }
 
     protected function partOne($input)
