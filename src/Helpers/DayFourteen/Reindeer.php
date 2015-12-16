@@ -19,9 +19,9 @@ final class Reindeer
     {
         preg_match('/(?<name>.*) can fly (?<speed>\\d*) km\/s for (?<burst>\\d*) seconds, but then must rest for (?<rest>\\d*) seconds\./', $input, $matches);
         $this->name        = $matches['name'];
-        $this->speed       = $matches['speed'];
-        $this->burst       = $matches['burst'];
-        $this->rest        = $matches['rest'];
+        $this->speed       = (int) $matches['speed'];
+        $this->burst       = (int) $matches['burst'];
+        $this->rest        = (int) $matches['rest'];
         $this->distance    = 0;
         $this->points      = 0;
         $this->secondsLeft = $this->burst;
