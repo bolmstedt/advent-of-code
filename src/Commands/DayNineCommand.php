@@ -18,8 +18,8 @@ final class DayNineCommand extends DayCommandAbstract
             'input' => 982
         ]
     ];
-    protected $locations = [];
-    protected $routes = [];
+    protected $locations    = [];
+    protected $routes       = [];
     protected $routeLengths = [];
 
     protected function processPayload($payload)
@@ -29,8 +29,8 @@ final class DayNineCommand extends DayCommandAbstract
 
     protected function initPart()
     {
-        $this->locations = [];
-        $this->routes = [];
+        $this->locations    = [];
+        $this->routes       = [];
         $this->routeLengths = [];
     }
 
