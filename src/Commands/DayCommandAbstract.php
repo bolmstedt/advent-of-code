@@ -25,7 +25,7 @@ abstract class DayCommandAbstract extends Command
 
     protected function configure()
     {
-        $this->setName('day:'.$this->day);
+        $this->setName('day:'.str_pad($this->day, 2, '0', STR_PAD_LEFT));
         $this->setDescription($this->description);
     }
 
