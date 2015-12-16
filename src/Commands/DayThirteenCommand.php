@@ -25,12 +25,12 @@ final class DayThirteenCommand extends DayCommandAbstract
 
     protected function processPayload($payload)
     {
-        ini_set('memory_limit', '512M');
         return explode(PHP_EOL, $payload);
     }
 
     protected function initPart()
     {
+        ini_set('memory_limit', '512M');
         $this->guests           = [];
         $this->seatings         = [];
         $this->seatingHappiness = [];
