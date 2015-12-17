@@ -91,8 +91,13 @@ abstract class DayCommandAbstract extends Command
         $failed = 0;
         $total = count($data);
         foreach ($data as $input => $expected) {
+            if (is_array($expected) === true) {
+                $input = $expected['input'];
+                $expected = $expected['output'];
+            }
             $timeStart = microtime(true);
             $calculated = $this->$function($input);
+            $input = implode(',', $input);
             $timeStop = microtime(true);
             $timeTotal = round(($timeStop - $timeStart)*1000);
             if ($calculated !== $expected) {
