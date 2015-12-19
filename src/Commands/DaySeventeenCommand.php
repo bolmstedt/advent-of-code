@@ -2,8 +2,6 @@
 
 namespace Aoc\Commands;
 
-use Aoc\Helpers\DaySixteen\Sue;
-
 final class DaySeventeenCommand extends DayCommandAbstract
 {
     protected $day          = 17;
