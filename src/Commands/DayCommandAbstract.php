@@ -31,6 +31,7 @@ abstract class DayCommandAbstract extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        ini_set('memory_limit', '512M');
         $this->output = $output;
         $this->input = $input;
         try {
@@ -39,9 +40,9 @@ abstract class DayCommandAbstract extends Command
             $this->runParts();
             $timeStop = microtime(true);
             $totalTime = round(($timeStop - $timeStart)*1000);
-            $this->output->writeln('Done in '.$totalTime.'ms with peak memory usage at '.round(memory_get_peak_usage()/1024/1024).'MB.');
+            $this->output->writeln('<info>Done in '.$totalTime.'ms with peak memory usage at '.round(memory_get_peak_usage()/1024/1024).'MB.</>');
         } catch (MissingInputException $e) {
-            $this->output->writeln('<error>No input file exists yet for this day.</>');
+            $this->output->writeln('<comment>No input file exists yet for this day.</>');
         }
     }
 
@@ -59,11 +60,11 @@ abstract class DayCommandAbstract extends Command
             $this->runTests($function, $data);
             $this->processInput($part);
         } catch (MissingTestException $e) {
-            $this->output->writeln("<error>Part $part is missing tests. Not running that part.</>");
+            $this->output->writeln("<comment>Part $part is missing tests. Not running that part.</>");
         } catch (FailingTestException $e) {
             $this->output->writeln("<error>Part $part is ".$e->getMessage().'</>');
         } catch (MissingFunctionException $e) {
-            $this->output->writeln("<error>Part $part is missing.</>");
+            $this->output->writeln("<comment>Part $part is missing.</>");
         }
     }
 
@@ -97,7 +98,9 @@ abstract class DayCommandAbstract extends Command
             }
             $timeStart = microtime(true);
             $calculated = $this->$function($input);
-            $input = implode(',', $input);
+            if (is_array($input) === true) {
+                $input = implode(',', $input);
+            }
             $timeStop = microtime(true);
             $timeTotal = round(($timeStop - $timeStart)*1000);
             if ($calculated !== $expected) {
