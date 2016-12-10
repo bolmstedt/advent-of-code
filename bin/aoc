@@ -7,7 +7,6 @@ if (PHP_SAPI !== 'cli') {
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-use Aoc\Commands;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -22,43 +21,17 @@ if (function_exists('ini_set') === true) {
     @ini_set('display_errors', 1);
 }
 
-$output      = new ConsoleOutput;
-$input       = new ArgvInput($_SERVER['argv']);
-$application = new Application;
+$output = new ConsoleOutput();
+$input = new ArgvInput($_SERVER['argv']);
+$application = new Application();
 
-$days = [
-    'one',
-    'two',
-    'three',
-    'four',
-    'five',
-    'six',
-    'seven',
-    'eight',
-    'nine',
-    'ten',
-    'eleven',
-    'twelve',
-    'thirteen',
-    'fourteen',
-    'fifteen',
-    'sixteen',
-    'seventeen',
-    'eighteen',
-    'nineteen',
-    'twenty',
-    'twentyone',
-    'twentytwo',
-    'twentythree',
-    'twentyfour',
-    'twentyfive',
-];
+for ($year = 2015; $year <= 2016; ++$year) {
+    for ($day = 1; $day <= 25; ++$day) {
+        $class = 'Bolmis\\AdventOfCode\\Days\\Y'.$year.'\\D'.str_pad($day, 2, '0', STR_PAD_LEFT).'\\Day';
 
-foreach ($days as $day) {
-    $file = __DIR__.'/../src/Commands/Day'.ucfirst($day).'Command.php';
-    if (file_exists($file) === true) {
-        $class = 'Aoc\\Commands\\Day'.ucfirst($day).'Command';
-        $application->add(new $class());
+        if (class_exists($class) === true) {
+            $application->add(new $class());
+        }
     }
 }
 
