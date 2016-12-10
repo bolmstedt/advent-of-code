@@ -9,6 +9,7 @@ final class Day extends AbstractDayCommand
     const LOW_COMPLEXITY = 0;
     const HIGH_COMPLEXITY = 1;
     const MUTATOR_START = '(';
+    const MUTATOR_MAX_LENGTH = 9;
     const MUTATOR_PATTERN = '/^\((?<length>\d+)x(?<multiplier>\d+)\)/';
 
     protected $description = 'Explosives in Cyberspace';
@@ -21,7 +22,7 @@ final class Day extends AbstractDayCommand
 
         do {
             if ($string[$position] === self::MUTATOR_START) {
-                $mutator = substr($string, $position, 9);
+                $mutator = substr($string, $position, sefl::MUTATOR_MAX_LENGTH);
                 preg_match(self::MUTATOR_PATTERN, $mutator, $matches);
                 $mutatorLength = strlen($matches[0]);
                 $subString = substr($string, $position + $mutatorLength, $matches['length']);
