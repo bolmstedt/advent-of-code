@@ -19,7 +19,7 @@ final class Day extends AbstractDayCommand
         $decompressed = 0;
         $length = strlen($string);
 
-        do {
+        while ($position < $length) {
             if ($string[$position] === self::MUTATOR_START) {
                 $mutator = substr($string, $position);
                 preg_match(self::MUTATOR_PATTERN, $mutator, $matches);
@@ -38,7 +38,7 @@ final class Day extends AbstractDayCommand
 
             ++$position;
             ++$decompressed;
-        } while ($position < $length);
+        }
 
         return $decompressed;
     }
