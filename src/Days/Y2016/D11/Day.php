@@ -55,7 +55,7 @@ final class Day extends AbstractDayCommand
         $steps = 0;
         $states = [$this->stateFactory->getInitial($input)];
 
-        do {
+        while ($this->isDone($states) === false) {
             if (empty($states) === true) {
                 dump('All states are gone. Something went wrong.');
 
@@ -68,7 +68,7 @@ final class Day extends AbstractDayCommand
             $states = $this->doStep($states);
             $stop = microtime(true);
             dump('Ran step '.$steps.': Computed '.$this->numberOfActions.' actions for '.$numberOfStates.' states with '.count($states).' new states discovered in '.round(($stop - $start) * 1000).' ms.');
-        } while ($this->isDone($states) === false);
+        }
 
         return $steps;
     }
